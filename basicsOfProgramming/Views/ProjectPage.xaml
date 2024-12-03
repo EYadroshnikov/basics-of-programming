@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:basicsOfProgramming.ViewModels"
+             x:Class="basicsOfProgramming.Views.ProjectPage"
+             x:DataType="viewModels:ProjectPageViewModel">
+
+    <ContentPage.BindingContext>
+        <viewModels:ProjectPageViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="30" Spacing="15">
+        <!-- Поля для редактирования проекта -->
+        <Entry Placeholder="Project Title" Text="{Binding SelectedProject.Name}" FontAttributes="Bold" FontSize="20" />
+        <Editor Placeholder="Description" Text="{Binding SelectedProject.Description}" />
+
+        <StackLayout>
+            <Label Text="Start Date:" />
+            <DatePicker Date="{Binding SelectedProject.StartDate}" />
+        </StackLayout>
+
+        <StackLayout>
+            <Label Text="End Date:" />
+            <DatePicker Date="{Binding SelectedProject.EndDate}" />
+        </StackLayout>
+
+        <StackLayout>
+            <Label Text="Priority:" />
+            <Picker ItemsSource="{Binding ProjectPriorities}"
+                    SelectedItem="{Binding SelectedProject.Priority}" />
+        </StackLayout>
+
+        <Button Text="Save Changes"
+                Command="{Binding SaveProjectCommand}" 
+                HorizontalOptions="Center" />
+
+        <!-- Список задач -->
+        <Label Text="Tasks:" FontSize="Large" FontAttributes="Bold" />
+        <CollectionView ItemsSource="{Binding SelectedProject.Tasks}" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="5">
+                        <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="Bold" />
+                        <Label Text="{Binding Description}" />
+                        <Label Text="{Binding DueDate, StringFormat='Due: {0:dd.MM.yyyy}'}" />
+                        <Label Text="{Binding Status}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Add New Task"
+                Command="{Binding AddTaskCommand}" 
+                HorizontalOptions="Center" />
+    </StackLayout>
+</ContentPage>

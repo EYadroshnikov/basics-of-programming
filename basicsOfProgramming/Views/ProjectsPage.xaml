@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:basicsOfProgramming.ViewModels"
+             xmlns:models="clr-namespace:basicsOfProgramming.Models"
+             xmlns:projects="clr-namespace:basicsOfProgramming.Models.Projects"
+             x:Class="basicsOfProgramming.Views.ProjectsPage"
+             x:DataType="viewModels:ProjectViewModel">
+
+    <ContentPage.BindingContext>
+        <viewModels:ProjectViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="30">
+
+        <!-- Поля для создания нового проекта -->
+        <Frame HasShadow="True" BorderColor="LightGray" CornerRadius="10"
+               Padding="20" Margin="0,0,0,20">
+            <StackLayout Spacing="15">
+                <Label Text="Create New Project" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" />
+
+                <Entry Placeholder="Project name" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="26"
+                       Text="{Binding ProjectName}" />
+                <Editor Placeholder="Description..." Text="{Binding ProjectDescription}" />
+
+                <!-- Подписи и выбор дат -->
+                <StackLayout>
+                    <Label Text="Start Date:" />
+                    <DatePicker Date="{Binding ProjectStartDate}" />
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="End Date:" />
+                    <DatePicker Date="{Binding ProjectEndDate}" />
+                </StackLayout>
+
+                <!-- Подпись и выбор приоритета -->
+                <StackLayout>
+                    <Label Text="Priority:" />
+                    <Picker ItemsSource="{Binding ProjectPriorities}"
+                            SelectedItem="{Binding ProjectPriority, Mode=TwoWay}" 
+                            WidthRequest="200" 
+                            HorizontalOptions="Start" />
+                </StackLayout>
+
+                <Button Text="Create project"
+                        Command="{Binding AddProjectCommand}"
+                        IsEnabled="{Binding CanAddProject}"
+                        HorizontalOptions="Center"
+                        WidthRequest="200" /> 
+            </StackLayout>
+        </Frame>
+
+        <!-- Список проектов -->
+        <Label Text="Projects:" FontSize="Large" FontAttributes="Bold" />
+        <CollectionView ItemsSource="{Binding Projects}" SelectionMode="Single"
+                        SelectedItem="{Binding SelectedProject}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="projects:Project">
+                    <StackLayout Padding="5">
+                        <Label Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" />
+                        <Label Text="{Binding Description}" />
+                        <Label Text="{Binding StartDate, StringFormat='Дата начала: {0:dd.MM.yyyy}'}" />
+                        <Label Text="{Binding EndDate, StringFormat='Дата окончания: {0:dd.MM.yyyy}'}" />
+                        <Label Text="{Binding Priority, StringFormat='Приоритет: {0}'}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+
+</ContentPage>

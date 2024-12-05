@@ -16,6 +16,9 @@ public class ProjectStore
     {
         // Добавьте тестовые данные, если нужно
         Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
+        Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
+        Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
+        Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
     }
 
     // Метод добавления нового проекта

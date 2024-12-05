@@ -27,5 +27,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Button Text="Add Task" Command="{Binding AddTaskCommand}" />
+        <Label Text="Project Hash:" FontSize="Medium" />
+        <Label Text="{Binding ProjectHash}" FontSize="Small" />
     </StackLayout>
 </ContentPage>

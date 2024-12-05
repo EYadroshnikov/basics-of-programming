@@ -10,7 +10,7 @@ namespace basicsOfProgramming.ViewModels;
 public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
 {
     [ObservableProperty] private Project _project;
-
+    public string ProjectHash => Project?.GetHashCode().ToString() ?? "No Project";
     public Array ProjectPriorities => Enum.GetValues(typeof(ProjectPriority));
     public Command SaveProjectCommand { get; }
     public Command AddTaskCommand { get; }
@@ -31,6 +31,8 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
         {
             Project = new Project("New Project", "", DateTime.Now, DateTime.Now.AddDays(7));
         }
+        
+        OnPropertyChanged(nameof(ProjectHash));
     }
 
     private async void OnSaveProject()

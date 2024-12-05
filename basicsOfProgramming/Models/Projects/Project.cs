@@ -1,3 +1,6 @@
+using basicsOfProgramming.Models.Tasks;
+using Task = basicsOfProgramming.Models.Tasks.Task;
+
 namespace basicsOfProgramming.Models.Projects;
 
 public class Project
@@ -7,7 +10,7 @@ public class Project
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public ProjectPriority Priority { get; set; }
-    private List<Task> Tasks { get; set; } = new();
+    public List<Task> Tasks { get; set; } = new();
 
     public void AddTask(Task task) => Tasks.Add(task);
     public void RemoveTask(Task task) => Tasks.Remove(task);

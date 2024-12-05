@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace basicsOfProgramming.Views;
 
-public partial class ProjectPage : ContentPage
+public partial class ProjectDetailPage : ContentPage
 {
-    public ProjectPage()
+    public ProjectDetailPage()
     {
         InitializeComponent();
     }

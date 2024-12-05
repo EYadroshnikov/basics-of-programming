@@ -10,7 +10,17 @@ public class Task
     public int Priority { get; private set; }
     public List<ChangeLog> ChangeLog { get; private set; } = new();
 
-    public void UpdateStatus(TaskStatus newStatus, string changeDescription)
+    public Task(string title, string? description, TaskStatus status, DateTime dueDate, string? assignedTo, int priority)
+    {
+        Title = title;
+        Description = description;
+        Status = status;
+        DueDate = dueDate;
+        AssignedTo = assignedTo;
+        Priority = priority;
+    }
+
+    private void UpdateStatus(TaskStatus newStatus, string changeDescription)
     {
         if (Status == newStatus) return;
         ChangeLog.Add(new ChangeLog

@@ -1,0 +1,25 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:basicsOfProgramming.ViewModels"
+             xmlns:global="clr-namespace:basicsOfProgramming"
+             xmlns:global1="clr-namespace:"
+             x:Class="basicsOfProgramming.Views.ProjectListPage"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <viewmodels:ProjectListViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <ListView ItemsSource="{Binding Projects}" 
+                  SelectedItem="{Binding SelectedProject, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}" Detail="{Binding Description}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Add Project" Command="{Binding AddProjectCommand}" />
+    </StackLayout>
+</ContentPage>

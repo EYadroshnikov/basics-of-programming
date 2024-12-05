@@ -1,0 +1,31 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:basicsOfProgramming.ViewModels"
+             xmlns:global="clr-namespace:"
+             x:Class="basicsOfProgramming.Views.ProjectDetailPage"
+             Title="Project Detail">
+
+    <ContentPage.BindingContext>
+        <vm:ProjectDetailViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Margin="100">
+        <Entry Text="{Binding Project.Name}" Placeholder="Project Name" />
+        <Editor Text="{Binding Project.Description}" Placeholder="Description" />
+        <DatePicker Date="{Binding Project.StartDate}" />
+        <DatePicker Date="{Binding Project.EndDate}" />
+        <Picker ItemsSource="{Binding ProjectPriorities}"
+                SelectedItem="{Binding Project.Priority}" />
+        <Button Text="Save" Command="{Binding SaveProjectCommand}" />
+
+        <Label Text="Tasks" FontSize="Medium" />
+        <CollectionView ItemsSource="{Binding Project.Tasks}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Title}" Detail="{Binding Description}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="Add Task" Command="{Binding AddTaskCommand}" />
+    </StackLayout>
+</ContentPage>

@@ -5,10 +5,25 @@ namespace basicsOfProgramming.Models.Projects;
 
 public class Project
 {
-    public string? Name { get; set; }
+    private string? _name;
+
+    public string? Name
+    {
+        get => _name;
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                
+                throw new ArgumentException("Project name can't be empty");
+            }
+
+            _name = char.ToUpper(value[0]) + value[1..];
+        }
+    }
+
     public string? Description { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public DateRange DateRange { get; set; }
     public ProjectPriority Priority { get; set; }
     public List<Task> Tasks { get; set; } = new();
 
@@ -19,16 +34,15 @@ public class Project
     {
         Name = name;
         Description = description;
-        StartDate = startDate;
-        EndDate = endDate;
-        Priority = 0;
+        DateRange = new DateRange(startDate, endDate);
+        Priority = ProjectPriority.High;
     }
+
     public Project(string name, string description, DateTime startDate, DateTime endDate, ProjectPriority priority)
     {
         Name = name;
         Description = description;
-        StartDate = startDate;
-        EndDate = endDate;
+        DateRange = new DateRange(startDate, endDate);
         Priority = priority;
     }
 }

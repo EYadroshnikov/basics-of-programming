@@ -12,8 +12,8 @@
     <StackLayout Margin="100">
         <Entry Text="{Binding Project.Name}" Placeholder="Project Name" />
         <Editor Text="{Binding Project.Description}" Placeholder="Description" />
-        <DatePicker Date="{Binding Project.StartDate}" />
-        <DatePicker Date="{Binding Project.EndDate}" />
+        <DatePicker Date="{Binding Project.DateRange.StartDate}" />
+        <DatePicker Date="{Binding Project.DateRange.EndDate}" />
         <Picker ItemsSource="{Binding ProjectPriorities}"
                 SelectedItem="{Binding Project.Priority}" />
         <Button Text="Save" Command="{Binding SaveProjectCommand}" />

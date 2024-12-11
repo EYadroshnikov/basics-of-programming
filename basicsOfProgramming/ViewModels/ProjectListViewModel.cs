@@ -30,13 +30,11 @@ public partial class ProjectListViewModel : BaseViewModel
 
     private async void OnAddProject()
     {
-        // Navigate to ProjectDetailPage to add a new project
         await Shell.Current.GoToAsync(nameof(ProjectDetailPage));
     }
 
     private async void OnSelectProject(Project project)
     {
-        // Передать выбранный проект на страницу деталей
         var navParam = new Dictionary<string, object> { { "Project", project } };
         await Shell.Current.GoToAsync(nameof(ProjectDetailPage), navParam);
     }

@@ -17,6 +17,7 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
 
     public ProjectDetailViewModel()
     {
+        Title = "Project Details";
         SaveProjectCommand = new Command(OnSaveProject);
         AddTaskCommand = new Command(OnAddTask);
     }

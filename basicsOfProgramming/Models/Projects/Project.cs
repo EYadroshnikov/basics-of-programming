@@ -25,6 +25,7 @@ public class Project
     public string? Description { get; set; }
     public DateRange DateRange { get; set; }
     public ProjectPriority Priority { get; set; }
+    public string? ImagePath { get; set; } = "dotnet_bot.png";
     public List<Task> Tasks { get; set; } = new();
 
     public void AddTask(Task task) => Tasks.Add(task);
@@ -38,11 +39,14 @@ public class Project
         Priority = ProjectPriority.High;
     }
 
-    public Project(string name, string description, DateTime startDate, DateTime endDate, ProjectPriority priority)
+    public Project(string name, string description, DateTime startDate, DateTime endDate, ProjectPriority priority, string imagePath)
     {
         Name = name;
         Description = description;
         DateRange = new DateRange(startDate, endDate);
         Priority = priority;
+        ImagePath = imagePath;
     }
+    
+    public override string ToString() => Name + " " + Description;
 }

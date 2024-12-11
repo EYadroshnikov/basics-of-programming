@@ -19,6 +19,16 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
+        <Image Source="{Binding SelectedProject.ImagePath}" 
+               Aspect="AspectFit" 
+               HeightRequest="200" 
+               Margin="10" />
+        
+        <Label Text="{Binding SelectedProject, StringFormat='Project: {0.Name} - {0.Description}'}" 
+               HorizontalOptions="Center" 
+               Margin="10" />
+
 
         <Button Text="Add Project" Command="{Binding AddProjectCommand}" />
     </StackLayout>

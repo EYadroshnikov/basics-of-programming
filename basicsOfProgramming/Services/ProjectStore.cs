@@ -19,10 +19,10 @@ public class ProjectStore
 
     private ProjectStore()
     {
-        Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
-        Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
-        Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
-        Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
+        Projects.Add(new Project("Sample Project1", "Some description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium, "dotnet_bot.png"));
+        Projects.Add(new Project("Sample Project2", "Some description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium, "images.jpeg"));
+        Projects.Add(new Project("Sample Project3", "Some description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium, "dotnet_bot.png"));
+        Projects.Add(new Project("Sample Project4", "Some description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium, "images.jpeg"));
     }
 
     public void AddProject(Project project)

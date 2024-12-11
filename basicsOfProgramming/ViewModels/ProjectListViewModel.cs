@@ -15,7 +15,7 @@ public partial class ProjectListViewModel : BaseViewModel
     partial void OnSelectedProjectChanged(Project value)
     {
         SelectProjectCommand.Execute(value);
-        SelectedProject = null;
+        // SelectedProject = null;
     }
 
     public Command AddProjectCommand { get; }
@@ -36,6 +36,6 @@ public partial class ProjectListViewModel : BaseViewModel
     private async void OnSelectProject(Project project)
     {
         var navParam = new Dictionary<string, object> { { "Project", project } };
-        await Shell.Current.GoToAsync(nameof(ProjectDetailPage), navParam);
+        // await Shell.Current.GoToAsync(nameof(ProjectDetailPage), navParam);
     }
 }

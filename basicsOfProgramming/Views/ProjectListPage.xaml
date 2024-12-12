@@ -21,5 +21,7 @@
         </ListView>
 
         <Button Text="Add Project" Command="{Binding AddProjectCommand}" />
+        <Button Text="Save" Command="{Binding SaveProjectsToFileCommand}" />
+        <Button Text="Load" Command="{Binding LoadProjectsFromFileCommand}" />
     </StackLayout>
 </ContentPage>

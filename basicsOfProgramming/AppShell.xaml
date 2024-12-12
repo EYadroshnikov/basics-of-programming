@@ -6,4 +6,5 @@
        Title="basicsOfProgramming">
     <ShellContent Route="ProjectListPage" ContentTemplate="{DataTemplate views:ProjectListPage}" />
     <ShellContent Route="ProjectDetailPage" ContentTemplate="{DataTemplate views:ProjectDetailPage}" />
+    <ShellContent Route="TaskDetailPage" ContentTemplate="{DataTemplate views:TaskDetailPage}" />
 </Shell>

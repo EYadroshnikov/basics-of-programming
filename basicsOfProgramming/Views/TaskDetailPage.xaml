@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:basicsOfProgramming.ViewModels"
+             x:Class="basicsOfProgramming.Views.TaskDetailPage"
+             Title="Task Detail">
+
+    <ContentPage.BindingContext>
+        <vm:TaskDetailViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Margin="100">
+        <Entry Text="{Binding Task.Title, Mode=TwoWay}" Placeholder="Task Title" />
+        <Editor Text="{Binding Task.Description, Mode=TwoWay}" Placeholder="Description" />
+        <DatePicker Date="{Binding Task.DueDate, Mode=TwoWay}" />
+        <Entry Text="{Binding Task.AssignedTo, Mode=TwoWay}" Placeholder="Assigned To" />
+        <Entry Text="{Binding Task.Priority, Mode=TwoWay}" Placeholder="Priority" Keyboard="Numeric" />
+        <Picker ItemsSource="{Binding TaskStatuses}" SelectedItem="{Binding Task.Status, Mode=TwoWay}" />
+        <Button Text="Save" Command="{Binding SaveTaskCommand}" />
+    </StackLayout>
+</ContentPage>

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using basicsOfProgramming.Models.Tasks;
 using Task = basicsOfProgramming.Models.Tasks.Task;
 
@@ -14,7 +15,6 @@ public class Project
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                
                 throw new ArgumentException("Project name can't be empty");
             }
 
@@ -25,7 +25,8 @@ public class Project
     public string? Description { get; set; }
     public DateRange DateRange { get; set; }
     public ProjectPriority Priority { get; set; }
-    public List<Task> Tasks { get; set; } = new();
+
+    public List<Task> Tasks { get; set; } = new List<Task>();
 
     public void AddTask(Task task) => Tasks.Add(task);
     public void RemoveTask(Task task) => Tasks.Remove(task);
@@ -44,5 +45,30 @@ public class Project
         Description = description;
         DateRange = new DateRange(startDate, endDate);
         Priority = priority;
+    }
+    
+    [JsonConstructor]
+    public Project(string name, string description, DateRange dateRange, ProjectPriority priority, List<Task> tasks)
+    {
+        Name = name;
+        Description = description;
+        DateRange = dateRange;
+        Priority = priority;
+        Tasks = tasks;
+    }
+    
+    public int GetProjectAge()
+    {
+        return (int)((DateTime.Now - DateRange.StartDate).TotalDays / 365);
+    }
+
+    public int GetProjectDuration()
+    {
+        return (int)(DateRange.EndDate - DateRange.StartDate).TotalDays;
+    }
+
+    public int GetTimeRemaining()
+    {
+        return (int)(DateRange.EndDate - DateTime.Now).TotalDays;
     }
 }

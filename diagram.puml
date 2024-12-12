@@ -1,45 +1,22 @@
 @startuml
 
-namespace basicsOfProgramming.Models.Projects {
-    class Project {
-        - string? Name
-        - string? Description
-        - DateTime StartDate
-        - DateTime EndDate
-        - ProjectPriority Priority
-        - List<Tasks.Task> Tasks
-
-        + Project(string name, string description, DateTime startDate, DateTime endDate)
-        + Project(string name, string description, DateTime startDate, DateTime endDate, ProjectPriority priority)
-        + void AddTask(Tasks.Task task)
-        + void RemoveTask(Tasks.Task task)
-    }
+class Task {
+  - string Title
+  - string? Description
+  - TaskStatus Status
+  - DateTime DueDate
+  - string? AssignedTo
+  - List<ChangeLog> ChangeLog
+  + Task(string, string?, TaskStatus, DateTime, string?)
+  - UpdateStatus(TaskStatus, string)
+  + MarkAsCompleted()
 }
 
-namespace basicsOfProgramming.Models.Tasks {
-    class Task {
-        - string Title
-        - string? Description
-        - TaskStatus Status
-        - DateTime DueDate
-        - string? AssignedTo
-        - int Priority
-        - List<ChangeLog> ChangeLog
-
-        + Task(string title, string? description, TaskStatus status, DateTime dueDate, string? assignedTo, int priority)
-        + void MarkAsCompleted()
-        - void UpdateStatus(TaskStatus newStatus, string changeDescription)
-    }
+class PriorityTask {
+  - int Priority
+  + SetPriority(int)
 }
 
-namespace basicsOfProgramming.Models {
-    class ChangeLog {
-        - DateTime Date
-        - string ChangeDescription
-    }
-}
-
-basicsOfProgramming.Models.Projects.Project "1" *-- "0..*" basicsOfProgramming.Models.Tasks.Task
-basicsOfProgramming.Models.Tasks.Task "1" *-- "0..*" basicsOfProgramming.Models.ChangeLog
+Task <|-- PriorityTask
 
 @enduml

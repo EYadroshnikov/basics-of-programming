@@ -19,13 +19,16 @@
         <Button Text="Save" Command="{Binding SaveProjectCommand}" />
 
         <Label Text="Tasks" FontSize="Medium" />
-        <CollectionView ItemsSource="{Binding Project.Tasks}">
-            <CollectionView.ItemTemplate>
+        
+        <ListView ItemsSource="{Binding Tasks}"
+                  SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Title}" Detail="{Binding Description}" />
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
+        </ListView>
+        
         <Button Text="Add Task" Command="{Binding AddTaskCommand}" />
         <Label Text="Project Hash:" FontSize="Medium" />
         <Label Text="{Binding ProjectHash}" FontSize="Small" />

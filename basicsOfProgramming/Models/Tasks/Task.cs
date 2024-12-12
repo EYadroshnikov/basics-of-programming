@@ -7,17 +7,15 @@ public class Task
     public TaskStatus Status { get; private set; }
     public DateTime DueDate { get; private set; }
     public string? AssignedTo { get; private set; }
-    public int Priority { get; private set; }
     public List<ChangeLog> ChangeLog { get; private set; } = new();
 
-    public Task(string title, string? description, TaskStatus status, DateTime dueDate, string? assignedTo, int priority)
+    public Task(string title, string? description, TaskStatus status, DateTime dueDate, string? assignedTo)
     {
         Title = title;
         Description = description;
         Status = status;
         DueDate = dueDate;
         AssignedTo = assignedTo;
-        Priority = priority;
     }
 
     private void UpdateStatus(TaskStatus newStatus, string changeDescription)

@@ -26,10 +26,10 @@ public class Project
     public DateRange DateRange { get; set; }
     public ProjectPriority Priority { get; set; }
 
-    public List<Task> Tasks { get; set; } = new List<Task>();
+    public List<PriorityTask> Tasks { get; set; } = new List<PriorityTask>();
 
-    public void AddTask(Task task) => Tasks.Add(task);
-    public void RemoveTask(Task task) => Tasks.Remove(task);
+    public void AddTask(PriorityTask task) => Tasks.Add(task);
+    public void RemoveTask(PriorityTask task) => Tasks.Remove(task);
 
     public Project(string name, string description, DateTime startDate, DateTime endDate)
     {
@@ -48,7 +48,7 @@ public class Project
     }
     
     [JsonConstructor]
-    public Project(string name, string description, DateRange dateRange, ProjectPriority priority, List<Task> tasks)
+    public Project(string name, string description, DateRange dateRange, ProjectPriority priority, List<PriorityTask> tasks)
     {
         Name = name;
         Description = description;

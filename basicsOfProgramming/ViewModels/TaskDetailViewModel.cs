@@ -8,7 +8,7 @@ namespace basicsOfProgramming.ViewModels;
 
 public partial class TaskDetailViewModel : BaseViewModel, IQueryAttributable
 {
-    [ObservableProperty] private Task _task;
+    [ObservableProperty] private PriorityTask _task;
     public Array TaskStatuses => Enum.GetValues(typeof(TaskStatus));
     public Command SaveTaskCommand { get; }
 
@@ -35,11 +35,11 @@ public partial class TaskDetailViewModel : BaseViewModel, IQueryAttributable
     {
         if (query.TryGetValue("Task", out var value))
         {
-            Task = value as Task;
+            Task = value as PriorityTask;
         }
         else
         {
-            Task = new Task("New Task", "", TaskStatus.NotStarted, DateTime.Now.AddDays(7), "somebody", 0);
+            Task = new PriorityTask("New Task", "", TaskStatus.NotStarted, DateTime.Now.AddDays(7), "somebody", 0);
         }
         
         OnPropertyChanged(nameof(Task));

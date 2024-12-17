@@ -4,21 +4,20 @@ using basicsOfProgramming.Models.Projects;
 
 namespace basicsOfProgramming.Services;
 
-public class ProjectStore
+public class ProjectStore: BaseStore<Project>
 {
-    private readonly string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "projects.json");
+    private static ProjectStore? _instance;
+    public static ProjectStore Instance => _instance ??= new ProjectStore();
+    
+    protected override string FilePath { get; } = 
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "projects.json");
+    public ObservableCollection<Project> Projects { get; } = new();
+    
     static ProjectStore()
     {
         _instance = new ProjectStore();
         Console.WriteLine("ProjectStore static constructor called.");
     }
-    
-
-    
-    private static ProjectStore? _instance;
-    public static ProjectStore Instance => _instance ??= new ProjectStore();
-
-    public ObservableCollection<Project> Projects { get; } = new();
 
     private ProjectStore()
     {
@@ -35,55 +34,16 @@ public class ProjectStore
     
     public void SaveProjectsToFile()
     {
-        this.SaveProjectsToFile(_filePath);
+        SaveToFile(Projects);
     }
     
     public void LoadProjectsFromFile()
     {
-        this.LoadProjectsFromFile(this._filePath);
-    }
-    
-    public void SaveProjectsToFile(string filePath)
-    {
-        try
+        var loadedProjects = LoadFromFile();
+        Projects.Clear();
+        foreach (var project in loadedProjects)
         {
-            var json = JsonSerializer.Serialize(Projects, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
-            File.WriteAllText(filePath, json);
-            Console.WriteLine("Проекты успешно сохранены в файл.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ошибка при сохранении проектов: {ex.Message}");
-        }
-    }
-
-    public void LoadProjectsFromFile(string filePath)
-    {
-        try
-        {
-            if (!File.Exists(filePath))
-            {
-                Console.WriteLine("Файл не найден, загрузка отменена.");
-                return;
-            }
-
-            var json = File.ReadAllText(filePath);
-            var loadedProjects = JsonSerializer.Deserialize<List<Project>>(json);
-
-            if (loadedProjects == null) return;
-            Projects.Clear();
-            foreach (var project in loadedProjects)
-            {
-                Projects.Add(project);
-            }
-            Console.WriteLine("Проекты успешно загружены из файла.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ошибка при загрузке проектов: {ex.Message}");
+            Projects.Add(project);
         }
     }
 }

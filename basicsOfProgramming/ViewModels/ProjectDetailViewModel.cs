@@ -17,15 +17,15 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
     public Array ProjectPriorities => Enum.GetValues(typeof(ProjectPriority));
     public Command SaveProjectCommand { get; }
     public Command AddTaskCommand { get; }
-    private Command<Task> SelectTaskCommand { get; }
+    private Command<PriorityTask> SelectTaskCommand { get; }
 
-    public ObservableCollection<Task> Tasks => Project?.Tasks != null
-        ? new ObservableCollection<Task>(Project.Tasks)
-        : new ObservableCollection<Task>();
+    public ObservableCollection<PriorityTask> Tasks => Project?.Tasks != null
+        ? new ObservableCollection<PriorityTask>(Project.Tasks)
+        : new ObservableCollection<PriorityTask>();
 
-    [ObservableProperty] private Task? _selectedTask;
+    [ObservableProperty] private PriorityTask? _selectedTask;
 
-    partial void OnSelectedTaskChanged(Task value)
+    partial void OnSelectedTaskChanged(PriorityTask value)
     {
         SelectTaskCommand.Execute(value);
         SelectedTask = null;
@@ -36,10 +36,10 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
         Title = "Project Details";
         SaveProjectCommand = new Command(OnSaveProject);
         AddTaskCommand = new Command(OnAddTask);
-        SelectTaskCommand = new Command<Task>(OnSelectTask);
+        SelectTaskCommand = new Command<PriorityTask>(OnSelectTask);
     }
 
-    private async void OnSelectTask(Task task)
+    private async void OnSelectTask(PriorityTask task)
     {
         var navParam = new Dictionary<string, object> { { "Task", task } };
         try
@@ -87,7 +87,7 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
             return;
         }
 
-        var task = new Task(
+        var task = new PriorityTask(
             title: "New Task",
             description: "Description here",
             status: TaskStatus.NotStarted,

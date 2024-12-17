@@ -2,7 +2,7 @@ namespace basicsOfProgramming.Models.Tasks;
 
 public class Task
 {
-    public string Title { get; set; } = "Title";
+    public virtual string Title { get; set; }
     public string? Description { get; set; }
     public TaskStatus Status { get; private set; }
     public DateTime DueDate { get; private set; }
@@ -17,7 +17,7 @@ public class Task
         DueDate = dueDate;
         AssignedTo = assignedTo;
     }
-
+    
     private void UpdateStatus(TaskStatus newStatus, string changeDescription)
     {
         if (Status == newStatus) return;
@@ -30,4 +30,13 @@ public class Task
     }
 
     public void MarkAsCompleted() => UpdateStatus(TaskStatus.Completed, "Task marked as completed");
+    
+    public virtual void ShowDetails()
+    {
+        Console.WriteLine($"Title: {Title}");
+        Console.WriteLine($"Description: {Description ?? "No description"}");
+        Console.WriteLine($"Status: {Status}");
+        Console.WriteLine($"Due Date: {DueDate.ToShortDateString()}");
+        Console.WriteLine($"Assigned To: {AssignedTo ?? "Unassigned"}");
+    }
 }

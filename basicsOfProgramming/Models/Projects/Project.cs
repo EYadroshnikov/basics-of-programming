@@ -71,4 +71,14 @@ public class Project
     {
         return (int)(DateRange.EndDate - DateTime.Now).TotalDays;
     }
+    
+    public override string ToString()
+    {
+        return $"Project Name: {Name}\n" +
+               $"Description: {Description}\n" +
+               $"Start Date: {DateRange.StartDate.ToShortDateString()}\n" +
+               $"End Date: {DateRange.EndDate.ToShortDateString()}\n" +
+               $"Priority: {Priority}\n" +
+               $"Task Count: {Tasks.Count}";
+    }
 }

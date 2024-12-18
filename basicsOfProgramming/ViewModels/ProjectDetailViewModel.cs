@@ -11,6 +11,7 @@ namespace basicsOfProgramming.ViewModels;
 
 public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
 {
+    private bool _isNavigating = false;
     [ObservableProperty] private Project _project;
 
     public string ProjectHash => Project?.GetHashCode().ToString() ?? "No Project";
@@ -27,8 +28,11 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
 
     partial void OnSelectedTaskChanged(PriorityTask value)
     {
-        SelectTaskCommand.Execute(value);
-        SelectedTask = null;
+        if (value != null && !_isNavigating)
+        {
+            _isNavigating = true;
+            SelectTaskCommand.Execute(value);
+        }
     }
 
     public ProjectDetailViewModel()
@@ -45,6 +49,8 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
         try
         {
             await Shell.Current.GoToAsync(nameof(TaskDetailPage), navParam);
+            SelectedTask = null;
+            _isNavigating = false;
         }
         catch (Exception ex)
         {

@@ -8,14 +8,16 @@ namespace basicsOfProgramming.ViewModels;
 
 public partial class ProjectListViewModel : BaseViewModel
 {
+    private bool _isNavigating = false;
     public ObservableCollection<Project> Projects => ProjectStore.Instance.Projects;
 
     [ObservableProperty] private Project? _selectedProject;
 
-    partial void OnSelectedProjectChanged(Project value)
+    partial void OnSelectedProjectChanged(Project? value)
     {
-        SelectProjectCommand.Execute(value);
-        SelectedProject = null;
+        if (value == null || _isNavigating) return;
+        _isNavigating = true;
+        OnSelectProject(value);
     }
 
     public Command AddProjectCommand { get; }
@@ -67,5 +69,8 @@ public partial class ProjectListViewModel : BaseViewModel
     {
         var navParam = new Dictionary<string, object> { { "Project", project } };
         await Shell.Current.GoToAsync(nameof(ProjectDetailPage), navParam);
+        
+        SelectedProject = null;
+        _isNavigating = false;
     }
 }

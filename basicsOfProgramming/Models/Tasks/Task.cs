@@ -4,7 +4,7 @@ public class Task
 {
     public virtual string Title { get; set; }
     public string? Description { get; set; }
-    public TaskStatus Status { get; private set; }
+    public TaskStatus Status { get; set; }
     public DateTime DueDate { get; private set; }
     public string? AssignedTo { get; private set; }
     public List<ChangeLog> ChangeLog { get; private set; } = new();

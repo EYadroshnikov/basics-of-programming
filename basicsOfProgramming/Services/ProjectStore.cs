@@ -9,6 +9,18 @@ public class ProjectStore: BaseStore<Project>
     private static ProjectStore? _instance;
     public static ProjectStore Instance => _instance ??= new ProjectStore();
     
+    public Project this[int index]
+    {
+        get => Projects[index];
+    }
+
+    // Индексатор для доступа к проекту по имени
+    public Project this[string name]
+    {
+        get => Projects.FirstOrDefault(p => p.Name == name) 
+               ?? throw new ArgumentException("Project not found");
+    }
+    
     protected override string FilePath { get; } = 
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "projects.json");
     public ObservableCollection<Project> Projects { get; } = new();

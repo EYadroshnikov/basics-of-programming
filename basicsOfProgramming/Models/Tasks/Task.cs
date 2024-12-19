@@ -1,6 +1,6 @@
 namespace basicsOfProgramming.Models.Tasks;
 
-public class Task
+public class Task: ITask
 {
     public virtual string Title { get; set; }
     public string? Description { get; set; }

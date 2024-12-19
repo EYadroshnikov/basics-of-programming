@@ -20,9 +20,9 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
     public Command AddTaskCommand { get; }
     private Command<PriorityTask> SelectTaskCommand { get; }
 
-    public ObservableCollection<PriorityTask> Tasks => Project?.Tasks != null
-        ? new ObservableCollection<PriorityTask>(Project.Tasks)
-        : new ObservableCollection<PriorityTask>();
+    public ObservableCollection<ITask> Tasks => Project?.Tasks != null
+        ? new ObservableCollection<ITask>(Project.Tasks)
+        : new ObservableCollection<ITask>();
 
     [ObservableProperty] private PriorityTask? _selectedTask;
 

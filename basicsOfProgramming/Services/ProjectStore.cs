@@ -25,11 +25,26 @@ public class ProjectStore: BaseStore<Project>
         Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
         Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
         Projects.Add(new Project("Sample Project", "Description", DateTime.Now, DateTime.Now.AddDays(10), ProjectPriority.Medium));
+        foreach (var project in Projects)
+        {
+            SubscribeToProjectEvents(project);
+        }
+    }
+    
+    private void SubscribeToProjectEvents(Project project)
+    {
+        project.ProjectChanged += OnProjectChanged;
+    }
+
+    private void OnProjectChanged(object sender, ProjectEventArgs e)
+    {
+        Console.WriteLine($"Project event: {e.Message}, Task: {e.Task.Title}");
     }
 
     public void AddProject(Project project)
     {
         Projects.Add(project);
+        SubscribeToProjectEvents(project);
     }
     
     public void SaveProjectsToFile()

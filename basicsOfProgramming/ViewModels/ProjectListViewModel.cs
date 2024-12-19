@@ -32,6 +32,21 @@ public partial class ProjectListViewModel : BaseViewModel
         SelectProjectCommand = new Command<Project>(OnSelectProject);
         SaveProjectsToFileCommand = new Command(OnSaveProjectsToFile);
         LoadProjectsFromFileCommand = new Command(OnLoadProjectsFromFile);
+        foreach (var project in Projects)
+        {
+            SubscribeToProjectEvents(project);
+        }
+    }
+    
+    private void SubscribeToProjectEvents(Project project)
+    {
+        project.ProjectChanged += OnProjectChanged;
+    }
+
+    private void OnProjectChanged(object sender, ProjectEventArgs e)
+    {
+        Console.WriteLine($"UI update: {e.Message}, Task: {e.Task.Title}");
+        OnPropertyChanged(nameof(Projects));
     }
     
     private async void OnSaveProjectsToFile()

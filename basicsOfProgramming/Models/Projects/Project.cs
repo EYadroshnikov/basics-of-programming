@@ -6,6 +6,9 @@ namespace basicsOfProgramming.Models.Projects;
 
 public class Project
 {
+    public delegate void ProjectChangedHandler(object sender, ProjectEventArgs e);
+    public event ProjectChangedHandler? ProjectChanged;
+    
     private string? _name;
 
     public string? Name
@@ -28,8 +31,22 @@ public class Project
 
     public List<PriorityTask> Tasks { get; set; } = new List<PriorityTask>();
 
-    public void AddTask(PriorityTask task) => Tasks.Add(task);
-    public void RemoveTask(PriorityTask task) => Tasks.Remove(task);
+    public void AddTask(PriorityTask task)
+    {
+        Tasks.Add(task);
+        OnProjectChanged(new ProjectEventArgs("Task added", task));
+    }
+
+    public void RemoveTask(PriorityTask task)
+    {
+        Tasks.Remove(task);
+        OnProjectChanged(new ProjectEventArgs("Task removed", task));
+    }
+    
+    protected virtual void OnProjectChanged(ProjectEventArgs e)
+    {
+        ProjectChanged?.Invoke(this, e);
+    }
 
     public Project(string name, string description, DateTime startDate, DateTime endDate)
     {

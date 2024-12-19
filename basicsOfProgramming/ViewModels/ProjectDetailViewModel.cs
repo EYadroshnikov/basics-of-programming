@@ -41,6 +41,22 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
         SaveProjectCommand = new Command(OnSaveProject);
         AddTaskCommand = new Command(OnAddTask);
         SelectTaskCommand = new Command<PriorityTask>(OnSelectTask);
+        if (Project != null)
+        {
+            SubscribeToProjectEvents(Project);
+        }
+    }
+    
+    private void SubscribeToProjectEvents(Project project)
+    {
+        project.ProjectChanged += OnProjectChanged;
+    }
+
+    private void OnProjectChanged(object sender, ProjectEventArgs e)
+    {
+        // Обновление списка задач
+        Console.WriteLine($"Task event: {e.Message}, Task: {e.Task.Title}");
+        OnPropertyChanged(nameof(Tasks));
     }
 
     private async void OnSelectTask(PriorityTask task)
@@ -101,7 +117,7 @@ public partial class ProjectDetailViewModel : BaseViewModel, IQueryAttributable
             assignedTo: "Unassigned",
             priority: 1);
 
-        Project.Tasks.Add(task);
+        Project.AddTask(task);
 
         OnPropertyChanged(nameof(Tasks));
 
